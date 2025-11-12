@@ -1,0 +1,35 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-added-large-files
+      - id: check-merge-conflict
+
+  - repo: local
+    hooks:
+      - id: replace-double-dashes
+        name: Replace double dashes with en dashes
+        entry: bash -c 'find . -name "*.md" -exec grep -l " -- " {} \; | xargs -r sed -i "" "s/ -- / – /g"'
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: replace-double-spaces
+        name: Replace double spaces with single spaces
+        entry: bash -c 'find . -name "*.md" -exec grep -l "  " {} \; | xargs -r sed -i "" "s/  / /g"'
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: remove-trailing-whitespace
+        name: Remove trailing whitespace
+        entry: bash -c 'find . -name "*.md" -exec grep -l "[[:space:]]$" {} \; | xargs -r sed -i "" "s/[[:space:]]*$//"'
+        language: system
+        pass_filenames: false
+        always_run: true
+
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.37.0
+    hooks:
+      - id: markdownlint
+        args: [--fix]
