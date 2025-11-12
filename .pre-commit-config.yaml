@@ -17,7 +17,7 @@ repos:
         always_run: true
       - id: replace-double-spaces
         name: Replace double spaces with single spaces
-        entry: bash -c 'find . -name "*.md" -exec grep -l "  " {} \; | xargs -r sed -i "" "s/  / /g"'
+        entry: bash -c 'find . -name "*.md" -exec grep -l "[^ ]  " {} \; | xargs -r sed -i "" "s/\([^ ]\)  /\1 /g"'
         language: system
         pass_filenames: false
         always_run: true
